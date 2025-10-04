@@ -6,22 +6,25 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityDateEl = document.querySelector(".city-date");
   const resetBtn = document.getElementById("resetCity");
 
+  // Кнопка смены города
   resetBtn?.addEventListener("click", () => {
     localStorage.removeItem("city");
     window.location.href = "index.html";
   });
 
+  // Пути к иконкам
   const icons = {
-    clouds: "assets/weather-icons/clouds.png",
-    night: "assets/weather-icons/night.png",
-    rain: "assets/weather-icons/rain.png",
-    thunder: "assets/weather-icons/thunder.png",
-    "sun-rain": "assets/weather-icons/sun-rain.png",
-    sun: "assets/weather-icons/sun.png"
+    clouds: "Assets/weather-icons/clouds.png",
+    night: "Assets/weather-icons/night.png",
+    rain: "Assets/weather-icons/rain.png",
+    thunder: "Assets/weather-icons/thunder.png",
+    "sun-rain": "Assets/weather-icons/sun-rain.png",
+    sun: "Assets/weather-icons/sun.png" // дефолтная иконка солнца
   };
 
   function updateWeather(data) {
-    if (!data) return;
+    if (!data) data = {};
+
     app.classList.add("show");
     cityDateEl.textContent = data.city || city;
 
@@ -30,10 +33,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const feelsEl = document.querySelector(".feels-like");
     const rainEl = document.querySelector(".rain-status");
 
-    if (mainIcon) mainIcon.src = icons[data.condition] || "";
+    // Если данных нет, показываем дефолт
+    const condition = data.condition || "sun";
+
+    if (mainIcon) mainIcon.src = icons[condition];
     if (tempEl) tempEl.textContent = data.temperature != null ? `${data.temperature}°C` : "-";
     if (feelsEl) feelsEl.textContent = data.feels_like != null ? `Feels like: ${data.feels_like}°C` : "-";
-    if (rainEl) rainEl.textContent = data.condition || "-";
+    if (rainEl) rainEl.textContent = condition;
 
     const todayItems = document.querySelectorAll(".today-item p");
     if (todayItems.length >= 4) {
@@ -50,19 +56,24 @@ document.addEventListener("DOMContentLoaded", () => {
           const dayEl = forecastItems[i].querySelector(".day");
           const tempEl = forecastItems[i].querySelector(".temp");
           const iconEl = forecastItems[i].querySelector("img");
+
+          const fCondition = f.condition || "sun"; // дефолт солнце
           if (dayEl) dayEl.textContent = f.day || "-";
           if (tempEl) tempEl.textContent = f.temp != null ? `${f.temp}°C` : "-";
-          if (iconEl) iconEl.src = icons[f.condition] || "";
+          if (iconEl) iconEl.src = icons[fCondition];
         }
       });
     }
   }
 
+  // Fetch с бекенда
   fetch(`https://deadlier-finite-lonna.ngrok-free.dev/api/forecast/?city=${encodeURIComponent(city)}`)
     .then(res => res.ok ? res.json() : Promise.reject("Ошибка запроса к серверу"))
     .then(data => updateWeather(data))
     .catch(err => {
-      console.error(err);
+      console.error("Ошибка при получении погоды:", err);
+
+      // Заглушка с дефолтной иконкой солнца
       updateWeather({
         city,
         temperature: "-",
