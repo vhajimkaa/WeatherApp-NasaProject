@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Fetch с бекенда
-  fetch(`https://deadlier-finite-lonna.ngrok-free.dev/api/forecast/?city=${encodeURIComponent(city)}`)
+  fetch(`https://weatherapp-back-1.onrender.com/api/forecast?city=${encodeURIComponent(city)}`)
     .then(res => res.ok ? res.json() : Promise.reject("Ошибка запроса к серверу"))
     .then(data => updateWeather(data))
     .catch(err => {
