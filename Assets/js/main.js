@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const todayItems = document.querySelectorAll(".today-item p");
     if (todayItems.length >= 4) {
-      todayItems[0].textContent = data.wind != null ? `Wind: ${data.wind} km/h` : "-";
+      todayItems[0].textContent = data.wind != null ? `Wind: ${data.wind} m/s` : "-";
       todayItems[1].textContent = data.sunrise || "-";
       todayItems[2].textContent = data.humidity != null ? `Humidity: ${data.humidity}%` : "-";
       todayItems[3].textContent = data.sunset || "-";
