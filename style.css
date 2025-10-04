@@ -1,0 +1,298 @@
+/* --------------------- Общий стиль --------------------- */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-image: url(./Assets/background/Background.png);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* --------------------- Шрифты --------------------- */
+@font-face {
+  font-family: 'Inter';
+  src: url('./Assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('./Assets/fonts/Inter/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+/* --------------------- Регистрация --------------------- */
+.registration-side {
+  background-color: white;
+  text-align: center;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  width: 90%;
+  max-width: 400px;
+}
+
+.registration-side p {
+  opacity: .6;
+}
+
+.registration-side input {
+  width: 80%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: rgb(248,248,248);
+  text-align: center;
+  font-size: 16px;
+  margin: 15px 0;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e5e7eb;
+  margin: 20px 0;
+}
+
+.registration-side .Continiue-button {
+  background-color: rgb(39,125,255);
+  width: 90%;
+  padding: 15px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  margin: 15px 0;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.registration-side .Continiue-button:disabled {
+  background-color: rgb(180,200,255);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.registration-side .Continiue-button:hover:not(:disabled) {
+  background-color: rgb(52,107,196);
+}
+
+.registration-side button {
+  background-color: rgb(241,241,241);
+  border-radius: 20px;
+  border: none;
+  padding: 8px 15px;
+  margin: 5px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+.registration-side button:hover {
+  background-color: rgb(174,210,255);
+}
+
+/* --------------------- Main page --------------------- */
+.weather-app {
+  background: #fff;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Класс для плавного появления */
+.weather-app.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --------------------- Weather header --------------------- */
+.weather-header {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.weather-header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  color: #333;
+}
+
+.city-date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+header button {
+  background-color: rgb(241,241,241);
+  border-radius: 20px;
+  border: none;
+  margin-left: -10px;
+  margin-bottom: 10px;
+  padding: 8px 15px;
+  cursor: pointer;
+  transition: .2s ease;
+}
+
+header button:hover {
+  background-color: rgb(174,210,255);
+}
+
+/* --------------------- Weather main --------------------- */
+.weather-main {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.weather-icon img {
+  width: 60px;
+  height: 60px;
+  margin-right: 15px;
+}
+
+.weather-temp h2 {
+  margin: 0;
+  font-size: 2.5rem;
+  color: #111;
+}
+
+.weather-temp p {
+  margin: 2px 0;
+  color: #555;
+}
+
+/* --------------------- Сегодня --------------------- */
+.weather-today {
+  margin-bottom: 20px;
+}
+
+.weather-today h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.today-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.today-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.today-item img {
+  width: 24px;
+  height: 24px;
+}
+
+/* --------------------- Прогноз --------------------- */
+.forecast h3 {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.forecast-item {
+  text-align: center;
+  background: #f8f8f8;
+  padding: 10px;
+  border-radius: 12px;
+  transition: .3s ease;
+}
+
+.forecast-item img {
+  width: 30px;
+  height: 30px;
+  margin: 5px 0;
+}
+
+.forecast-item p {
+  margin: 2px 0;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.forecast-item:hover {
+  transform: scale(1.1);
+  background-color: rgb(214,223,246);
+}
+
+/* --------------------- Заблокированная кнопка --------------------- */
+.continue-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* --------------------- Адаптив --------------------- */
+@media (max-width: 480px) {
+    .registration-side {
+        padding: 20px;
+    }
+
+    .registration-side input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .registration-side .Continiue-button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .registration-side button {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}
+
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  main {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+  main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.weather-app {
+  opacity: 1;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.weather-app.show {
+  opacity: 1;
+  transform: translateY(0); }

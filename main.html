@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./Assets/js/main.js" defer></script>
+</head>
+<body>
+
+  <main class="weather-app">
+
+    <!-- Заголовок -->
+    <header class="weather-header">
+      <h1>Weather</h1>
+      <p class="city-date">-</p>
+      <button id="resetCity" class="reset-btn">Change city</button>
+    </header>
+
+    <!-- Основная температура -->
+    <section class="weather-main">
+      <div class="weather-icon">
+        <img src="" alt="Weather Icon">
+      </div>
+      <div class="weather-temp">
+        <h2>-</h2>
+        <p class="feels-like">-</p>
+        <p class="rain-status">-</p>
+      </div>
+      <hr class="divider">
+    </section>
+
+    <!-- Сегодня -->
+    <section class="weather-today">
+      <h3>Today:</h3>
+      <div class="today-grid">
+        <div class="today-item">
+          <img src="./Assets/weather-icons/circle-heat-svgrepo-com.svg" alt="Wind Icon">
+          <p>-</p>
+        </div>
+        <div class="today-item">
+          <img src="./Assets/weather-icons/sunrise-svgrepo-com.svg" alt="Sunrise Icon">
+          <p>-</p>
+        </div>
+        <div class="today-item">
+          <img src="./Assets/weather-icons/droplets-svgrepo-com.svg" alt="Humidity Icon">
+          <p>-</p>
+        </div>
+        <div class="today-item">
+          <img src="./Assets/weather-icons/sunset-svgrepo-com.svg" alt="Sunset Icon">
+          <p>-</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Прогноз на 5 дней -->
+    <section class="forecast">
+      <h3>5-day forecast:</h3>
+      <div class="forecast-grid">
+        <div class="forecast-item">
+          <p class="day">-</p>
+          <img src="" alt="Day Icon">
+          <p class="temp">-</p>
+        </div>
+        <div class="forecast-item">
+          <p class="day">-</p>
+          <img src="" alt="Day Icon">
+          <p class="temp">-</p>
+        </div>
+        <div class="forecast-item">
+          <p class="day">-</p>
+          <img src="" alt="Day Icon">
+          <p class="temp">-</p>
+        </div>
+        <div class="forecast-item">
+          <p class="day">-</p>
+          <img src="" alt="Day Icon">
+          <p class="temp">-</p>
+        </div>
+        <div class="forecast-item">
+          <p class="day">-</p>
+          <img src="" alt="Day Icon">
+          <p class="temp">-</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

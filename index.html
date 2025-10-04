@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+ 
+    <div class="registration-page">
+        <div class="registration-side">
+            <img src="Assets/icons/weather-icon.png" width="150px" alt="weather-icon">
+            <h1>Welcome!</h1>
+            <p>Enter your city to get the weather forecast</p>
+            <input id="myInput" placeholder="New York, London..." type="text">
+            <button id="continueBtn" class="Continiue-button">Continue</button>
+            <hr class="divider">
+        
+            <div class="city-examples">
+                <p>Popular cities:</p>
+                <button class="text-btn">New York</button>
+                <button class="text-btn">London</button>
+                <button class="text-btn">Paris</button>
+                <button class="text-btn">Tokyo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const input = document.getElementById("myInput");
+        const buttons = document.querySelectorAll(".text-btn");
+        const continueBtn = document.getElementById("continueBtn");
+        const regSide = document.querySelector('.registration-side');
+
+        // кнопка заблокирована изначально
+        continueBtn.disabled = true;
+
+        // активируем кнопку при вводе текста
+        input.addEventListener("input", () => {
+            continueBtn.disabled = input.value.trim() === "";
+        });
+
+        // при клике на популярные города
+        buttons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                input.value = btn.textContent;
+                continueBtn.disabled = false; // активируем кнопку
+            });
+        });
+
+        // при нажатии Continue с анимацией
+        continueBtn.addEventListener("click", () => {
+            const city = input.value.trim();
+            if (city) {
+                localStorage.setItem("city", city);
+
+                // Анимация исчезновения
+                regSide.style.transition = "opacity 0.3s ease, transform 0.3s ease";
+                regSide.style.opacity = 0;
+                regSide.style.transform = "translateY(20px)";
+                
+                // Ждём 300ms и переходим
+                setTimeout(() => {
+                    window.location.href = "main.html";
+                }, 300);
+            }
+        });
+    </script>
+
+</body>
+</html>

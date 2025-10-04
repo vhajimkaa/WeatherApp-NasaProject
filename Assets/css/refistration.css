@@ -1,0 +1,126 @@
+/* Общий стиль для registration */
+body {
+    background-image: url(Assets/background/Background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.registration-side {
+    background-color: white;
+    text-align: center;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+}
+
+.registration-side p {
+    opacity: .6;
+}
+
+.registration-side input {
+    width: 80%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    background-color: rgb(248, 248, 248);
+    text-align: center;
+    font-size: 16px;
+    margin: 15px 0;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 20px 0;
+}
+
+.registration-side .Continiue-button {
+    background-color: rgb(39, 125, 255);
+    width: 90%;
+    padding: 15px;
+    border-radius: 12px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    margin: 15px 0;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+/* Заблокированная кнопка */
+.registration-side .Continiue-button:disabled {
+    background-color: rgb(180, 200, 255);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.registration-side .Continiue-button:hover:not(:disabled) {
+    background-color: rgb(52, 107, 196);
+}
+
+.registration-side button {
+    background-color: rgb(241, 241, 241);
+    border-radius: 20px;
+    border: none;
+    padding: 8px 15px;
+    margin: 5px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.registration-side button:hover {
+    background-color: rgb(174, 210, 255);
+}
+
+@media (max-width: 480px) {
+    .registration-side {
+        padding: 20px;
+    }
+
+    .registration-side input {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .registration-side .Continiue-button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    .registration-side button {
+        font-size: 13px;
+        padding: 6px 12px;
+    }
+}
+
+/* --- Main page weather app --- */
+.weather-app {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    opacity: 0;             /* изначально скрыто */
+    transform: translateY(20px);
+}
+
+/* Класс для плавного появления */
+.weather-app.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Остальные стили твоего main.css (температура, прогноз, today-grid и т.д.) остаются без изменений */
