@@ -6,21 +6,39 @@ document.addEventListener("DOMContentLoaded", () => {
   const cityDateEl = document.querySelector(".city-date");
   const resetBtn = document.getElementById("resetCity");
 
-  // Кнопка смены города
+  // City change button
   resetBtn?.addEventListener("click", () => {
     localStorage.removeItem("city");
     window.location.href = "index.html";
   });
 
-  // Пути к иконкам
+  // Icon paths
   const icons = {
     clouds: "Assets/weather-icons/clouds.png",
-    night: "Assets/weather-icons/night.png",
     rain: "Assets/weather-icons/rain.png",
-    thunder: "Assets/weather-icons/thunder.png",
+    thunderstorm: "Assets/weather-icons/thunderstorm.png",
     "sun-rain": "Assets/weather-icons/sun-rain.png",
-    sun: "Assets/weather-icons/sun.png" // дефолтная иконка солнца
+    clear: "Assets/weather-icons/clear.png",
+    drizzle: "Assets/weather-icons/rain.png",
+    mist: "Assets/weather-icons/night.png",
+    smoke: "Assets/weather-icons/night.png",
+    haze: "Assets/weather-icons/night.png",
+    dust: "Assets/weather-icons/dust.png",
+    fog: "Assets/weather-icons/night.png",
+    sand: "Assets/weather-icons/dust.png",
+    ash: "Assets/weather-icons/dust.png",
+    squall: "Assets/weather-icons/thunderstorm.png",
+    tornado: "Assets/weather-icons/thunderstorm.png",
+    snow: "Assets/weather-icons/snowy.png",
+    sun: "Assets/weather-icons/clear.png", // дефолт
   };
+
+  // Function to select icon by condition
+  function getIcon(condition) {
+    if (!condition) return icons.sun;
+    const key = condition.toLowerCase().replace(/\s/g, "-");
+    return icons[key] || icons.sun;
+  }
 
   function updateWeather(data) {
     if (!data) data = {};
@@ -33,13 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const feelsEl = document.querySelector(".feels-like");
     const rainEl = document.querySelector(".rain-status");
 
-    // Если данных нет, показываем дефолт
-    const condition = data.condition || "sun";
+  // If no data, show default
+  const condition = data.condition || "sun";
 
-    if (mainIcon) mainIcon.src = icons[condition];
-    if (tempEl) tempEl.textContent = data.temperature != null ? `${data.temperature}°C` : "-";
-    if (feelsEl) feelsEl.textContent = data.feels_like != null ? `Feels like: ${data.feels_like}°C` : "-";
-    if (rainEl) rainEl.textContent = condition;
+  if (mainIcon) mainIcon.src = getIcon(condition);
+  if (tempEl) tempEl.textContent = data.temperature != null ? `${data.temperature}°C` : "-";
+  if (feelsEl) feelsEl.textContent = data.feels_like != null ? `Feels like: ${data.feels_like}°C` : "-";
+  if (rainEl) rainEl.textContent = condition;
 
     const todayItems = document.querySelectorAll(".today-item p");
     if (todayItems.length >= 4) {
@@ -57,23 +75,23 @@ document.addEventListener("DOMContentLoaded", () => {
           const tempEl = forecastItems[i].querySelector(".temp");
           const iconEl = forecastItems[i].querySelector("img");
 
-          const fCondition = f.condition || "sun"; // дефолт солнце
+          const fCondition = f.condition || "sun"; // default: sun
           if (dayEl) dayEl.textContent = f.day || "-";
           if (tempEl) tempEl.textContent = f.temp != null ? `${f.temp}°C` : "-";
-          if (iconEl) iconEl.src = icons[fCondition];
+          if (iconEl) iconEl.src = getIcon(fCondition);
         }
       });
     }
   }
 
-  // Fetch с бекенда
+  // Fetch from backend
   fetch(`https://weatherapp-back-1.onrender.com/api/forecast?city=${encodeURIComponent(city)}`)
-    .then(res => res.ok ? res.json() : Promise.reject("Ошибка запроса к серверу"))
+  .then(res => res.ok ? res.json() : Promise.reject("Server request error"))
     .then(data => updateWeather(data))
     .catch(err => {
-      console.error("Ошибка при получении погоды:", err);
+      console.error("Error fetching weather:", err);
 
-      // Заглушка с дефолтной иконкой солнца
+      // Stub with default sun icon
       updateWeather({
         city,
         temperature: "-",
