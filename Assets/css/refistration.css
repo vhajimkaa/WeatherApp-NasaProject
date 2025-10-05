@@ -2,7 +2,7 @@
 body {
     background-image: url(Assets/background/Background.png);
     background-repeat: no-repeat;
-    background-size: cover;
+    /* Загальний стиль для реєстрації */
     background-position: center;
     min-height: 100vh;
     margin: 0;
@@ -28,7 +28,7 @@ body {
 }
 
 .registration-side input {
-    width: 80%;
+    /* Заблокована кнопка */
     padding: 15px;
     border-radius: 12px;
     border: 1px solid #ddd;
@@ -123,4 +123,3 @@ body {
     transform: translateY(0);
 }
 
-/* Остальные стили твоего main.css (температура, прогноз, today-grid и т.д.) остаются без изменений */

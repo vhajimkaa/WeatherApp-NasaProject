@@ -9,6 +9,25 @@
 </head>
 <body>
 
+  <!-- Завантажувач -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Download...</p>
+  </div>
+
+  <header class="site-header">
+    <div class="header-container">
+      <h1 class="logo">Weather</h1>
+      <img src="/Assets/nasa-logo.png" width="160" alt="Nasa">
+      <img id="Borschcraft" src="/Assets/borschcraft.jpg" width="50" alt="Borschcraft">
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="main.html">Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Основний додаток -->
   <main class="weather-app">
 
     <header class="weather-header">
@@ -81,6 +100,14 @@
         </div>
       </div>
     </section>
+
+    <div class="nasa-view">
+      <h2>NASA Satellite View</h2>
+      <div class="image-box">
+        <img id="nasaImage" src="-" alt="NASA Satellite" style="display:none; max-width:100%; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.4);">
+      </div>
+      <button id="downloadImage" style="display:none;">Download NASA Image</button>
+    </div>
 
   </main>
 

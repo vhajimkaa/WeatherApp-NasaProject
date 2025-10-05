@@ -2,13 +2,14 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-image: url(./Assets/background/Background.png);
+  background-image: url(./Assets/background/background-stars.png);
   background-size: cover;
   background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  margin: 100px;
 }
 
 /* --------------------- Fonts --------------------- */
@@ -117,7 +118,11 @@ body {
 
 /* --------------------- Weather header --------------------- */
 .weather-header {
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center contents horizontally */
+  text-align: center;
+  gap: 8px;
   margin-bottom: 20px;
 }
 
@@ -132,19 +137,35 @@ body {
   font-size: 0.9rem;
 }
 
-header button {
-  background-color: rgb(241,241,241);
-  border-radius: 20px;
+/* Reset / change-city button: centered and high-contrast on white background */
+#resetCity {
+  background-color: #ff7a18; /* vivid orange for contrast */
+  color: white;
   border: none;
-  margin-left: -10px;
-  margin-bottom: 10px;
-  padding: 8px 15px;
+  padding: 10px 18px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: .2s ease;
+  box-shadow: 0 6px 18px rgba(255,122,24,0.18);
+  font-weight: 600;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
 }
 
-header button:hover {
-  background-color: rgb(174,210,255);
+#resetCity:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+  box-shadow: 0 10px 24px rgba(255,122,24,0.2);
+}
+
+#resetCity:active {
+  transform: translateY(0);
+}
+
+/* Ensure button remains visible when disabled (use muted style but still readable) */
+#resetCity:disabled {
+  background-color: #ffd9bf;
+  color: rgba(255,122,24,0.8);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* --------------------- Weather main --------------------- */
@@ -296,3 +317,141 @@ main {
 .weather-app.show {
   opacity: 1;
   transform: translateY(0); }
+
+  
+  .nasa-section {
+  margin-top: 20px;
+  background: #f0f4f8;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.nasa-section img {
+  max-width: 100%;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.nasa-section button {
+  background-color: rgb(39,125,255);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.nasa-section button:hover {
+  background-color: rgb(52,107,196);
+}
+
+
+
+/* Header */
+.site-header {
+  width: 100%;
+  background-color: #0a2a43; /* темно-синій */
+  color: #fff;
+  padding: 12px 0;
+  position: fixed; /* завжди зверху */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #ffd700; /* золотистий при наведенні */
+}
+
+/* Щоб основний контент не ховався під фіксованим header */
+body {
+  padding-top: 82px; 
+}
+
+#Borschcraft {
+  border-radius: 50%;
+}
+
+/* Лоадер (якщо потрібен селектор для нього, додайте власний блок нижче) */
+#loader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #0a2a43;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  z-index: 2000;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255,255,255,0.3);
+  border-top: 6px solid #ffd700;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+
+#downloadImage {
+  /* Match prominent button style so it stands out on white */
+  background-color: #ff7a18; /* vivid orange */
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin: 10px auto; /* center when in block context */
+  display: inline-block;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255,122,24,0.18);
+  font-weight: 600;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+#downloadImage:hover {
+  transform: translateY(-2px);
+  filter: brightness(0.95);
+  box-shadow: 0 10px 24px rgba(255,122,24,0.2);
+}
+
+#downloadImage:active { transform: translateY(0); }
+
+#downloadImage:disabled {
+  background-color: #ffd9bf;
+  color: rgba(255,122,24,0.8);
+  cursor: not-allowed;
+  box-shadow: none;
+}
