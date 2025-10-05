@@ -386,24 +386,44 @@ main:not(.weather-app) {
 @media (max-width: 600px) {
   .header-container {
     flex-direction: column;
-    gap: 10px;
-    padding: 0 12px;
+    gap: 8px;
+    padding: 8px 12px;
+    align-items: stretch;
   }
+  /* Hide burger entirely on mobile (we won't use it) */
+  .nav-toggle { display: none !important; }
+
+  /* Keep nav links visible on mobile (Home / Dashboard) */
   .nav-links {
     display: flex;
     gap: 12px;
     justify-content: center;
+    flex-wrap: wrap;
   }
   .nav-links a { margin-left: 0; }
-  .header-container img { max-width: 120px; height: auto; }
-  #Borschcraft { width: 40px; height: 40px; }
+  /* Hide header icons on mobile */
+  .header-logo, .header-avatar { display: none; }
 
-  .weather-app { padding: 18px; }
+  .weather-app { padding: 16px; }
   .weather-main { flex-wrap: wrap; gap: 12px; }
   .weather-icon img { width: 48px; height: 48px; }
   .weather-temp h2 { font-size: 2rem; }
   .today-item img, .forecast-item img { width: 26px; height: 26px; }
   #resetCity, #downloadImage { padding: 10px 14px; font-size: 0.95rem; }
+}
+
+/* When header-container has .nav-open, reveal nav-links */
+@media (max-width: 600px) {
+  .header-container.nav-open .nav-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    padding: 10px 12px;
+    border-radius: 8px;
+    align-items: center;
+  }
 }
 
 /* Ensure header items are centered and have good spacing on very small screens */
@@ -498,7 +518,8 @@ main:not(.weather-app) {
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
   gap: var(--gap);
   padding: 0 16px;
@@ -543,6 +564,9 @@ main:not(.weather-app) {
 .nav-links a:hover {
   color: #ffd700; /* золотистий при наведенні */
 }
+
+/* Hide burger by default (desktop); shown on small screens via media query */
+.nav-toggle { display: none; }
 
 /* Щоб основний контент не ховався під фіксованим header */
 /* padding-top already set near top of file */
@@ -614,4 +638,14 @@ main:not(.weather-app) {
 #resetCity:focus, #downloadImage:focus, .nav-links a:focus, .registration-side .Continiue-button:focus {
   outline: 3px solid rgba(255,122,24,0.25);
   outline-offset: 2px;
+}
+
+
+@media (max-width: 600px) {
+  .nasa-img {
+    display: none;
+  }
+  .borschcraft {
+display: none;
+  }
 }
