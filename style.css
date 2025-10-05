@@ -5,12 +5,65 @@ body {
   background-image: url(./Assets/background/background-stars.png);
   background-size: cover;
   background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  margin: 100px;
+  /* content should start below the fixed header; padding can be adjusted if header height changes */
+  padding-top: 82px;
+  margin-top: 40px;
 }
+
+/* Design tokens */
+:root {
+  --bg: #f7fbff;
+  --card-bg: #ffffff;
+  --muted: #666666;
+  --accent: #ff7a18;
+  --primary: #277dff;
+  --radius: 12px;
+  --gap: 12px;
+}
+
+/* Utility */
+.hidden { display: none !important; }
+
+/* Button baseline */
+.btn-primary {
+  background-color: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(255,122,24,0.18);
+  font-weight: 600;
+  transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+}
+.btn-primary:hover { transform: translateY(-2px); filter: brightness(.98); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { background-color: #ffd9bf; color: rgba(255,122,24,0.8); cursor: not-allowed; box-shadow: none; }
+
+/* Make images and cards feel less cramped on small screens */
+.weather-app { padding: 20px; border-radius: var(--radius); }
+.weather-header { gap: 6px; }
+.weather-temp h2 { line-height: 1; }
+.today-item, .forecast-item { align-items: center; justify-content: center; }
+
+/* Global reset for consistency */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Registration page adjustments */
+.registration-page { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 82px); padding: 20px; }
+.reg-icon { display:block; width: 150px; max-width: 36vw; height: auto; margin: 0 auto 12px; }
+.city-examples { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+.text-btn { background: transparent; border:none; padding:8px 10px; border-radius:10px; cursor:pointer; transition:.12s ease; }
+.text-btn:hover { background: rgba(39,125,255,0.08); }
+
+/* Make registration buttons full width on small screens */
+@media (max-width: 480px) {
+  .registration-side { width: 100%; padding: 18px; }
+  .registration-side .Continiue-button, #continueBtn { width: 100%; padding: 12px; font-size: 16px; }
+}
+
 
 /* --------------------- Fonts --------------------- */
 @font-face {
@@ -193,6 +246,13 @@ body {
   color: #555;
 }
 
+.weather-temp {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
 /* --------------------- Today --------------------- */
 .weather-today {
   margin-bottom: 20px;
@@ -205,9 +265,14 @@ body {
 }
 
 .today-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.today-grid .today-item {
+  flex: 1 1 140px; /* try to keep desktop-like widths, but allow wrapping */
+  min-width: 110px;
 }
 
 .today-item {
@@ -229,9 +294,15 @@ body {
 }
 
 .forecast-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
   gap: 10px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  /* Use flexbox so we can control tile sizing across breakpoints */
+}
+.forecast-grid .forecast-item {
+  flex: 1 1 110px; /* desktop-like tiles, wrap on smaller screens */
+  min-width: 88px;
 }
 
 .forecast-item {
@@ -255,9 +326,18 @@ body {
 }
 
 .forecast-item:hover {
-  transform: scale(1.1);
-  background-color: rgb(214,223,246);
+  transform: translateY(-4px);
+  background-color: rgb(230,237,252);
 }
+
+.nasa-view { margin-top: 18px; text-align: center; }
+.nasa-view #downloadImage { display: none; margin-top: 8px; }
+
+/* NASA-specific visibility control: start hidden, JS will reveal when ready */
+.nasa-img { display: none; width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.12); }
+.nasa-view .show-image #nasaImage,
+.nasa-view.show #nasaImage { display: block; }
+.nasa-view.show #downloadImage { display: inline-block; }
 
 /* --------------------- Disabled button --------------------- */
 .continue-button:disabled {
@@ -267,59 +347,102 @@ body {
 
 /* --------------------- Responsive --------------------- */
 @media (max-width: 480px) {
-    .registration-side {
-        padding: 20px;
-    }
+  /* registration adjustments */
+  .registration-side { padding: 18px; }
+  .registration-side input { font-size: 14px; padding: 12px; width: 100%; }
+  .registration-side .Continiue-button { font-size: 14px; padding: 12px; width: 100%; }
+  .registration-side button { font-size: 13px; padding: 8px 12px; }
 
-    .registration-side input {
-        font-size: 14px;
-        padding: 12px;
-    }
+  /* weather layout wrapping */
+  .weather-main { flex-direction: row; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .weather-icon { flex: 0 0 auto; }
+  .weather-temp { flex: 1 1 160px; }
+  .divider { margin: 12px 0; }
 
-    .registration-side .Continiue-button {
-        font-size: 14px;
-        padding: 12px;
-    }
-
-    .registration-side button {
-        font-size: 13px;
-        padding: 6px 12px;
-    }
+  /* make forecast items a bit taller and wrap properly */
+  .forecast-grid { gap: 8px; }
+  .forecast-grid .forecast-item { flex: 1 1 40%; min-width: 140px; }
+  .today-grid .today-item { flex: 1 1 45%; min-width: 120px; }
 }
 
-main {
+/* Layout for pages that use a multi-column main. Exclude the weather app main to avoid conflicts */
+main:not(.weather-app) {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
 @media (max-width: 600px) {
   main {
-    grid-template-columns: 1fr;
+    /* single column layout achieved by flex-basis: 100% on children or natural stacking */
     padding: 10px;
   }
 }
 
+/* Small screens: stack header items and scale images/buttons */
+@media (max-width: 600px) {
+  .header-container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 12px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .nav-links a { margin-left: 0; }
+  .header-container img { max-width: 120px; height: auto; }
+  #Borschcraft { width: 40px; height: 40px; }
+
+  .weather-app { padding: 18px; }
+  .weather-main { flex-wrap: wrap; gap: 12px; }
+  .weather-icon img { width: 48px; height: 48px; }
+  .weather-temp h2 { font-size: 2rem; }
+  .today-item img, .forecast-item img { width: 26px; height: 26px; }
+  #resetCity, #downloadImage { padding: 10px 14px; font-size: 0.95rem; }
+}
+
+/* Ensure header items are centered and have good spacing on very small screens */
+@media (max-width: 420px) {
+  .header-container { padding: 8px 10px; }
+  .header-logo { width: 40vw; max-width: 140px; }
+  .nav-links { gap: 8px; }
+  .nav-links a { font-size: 0.95rem; padding: 8px; }
+  .header-avatar { width: 40px; height: 40px; }
+}
+
 @media (min-width: 601px) and (max-width: 1024px) {
   main {
-    grid-template-columns: repeat(2, 1fr);
+    /* two-column feel: ensure children can take about half width */
+    gap: 20px;
   }
+  main > * { flex: 1 1 calc(50% - 20px); }
+}
+
+/* Medium screens: adjust forecast tile sizing for desktop-like appearance */
+@media (min-width: 700px) and (max-width: 1024px) {
+  .forecast-grid .forecast-item { flex: 1 1 22%; min-width: 140px; }
 }
 
 .weather-app {
-  opacity: 1;
+  /* center the card and limit width */
+  margin: 20px auto;
+  max-width: 720px;
+  width: 92%;
+  opacity: 0; /* initial hidden, .show will reveal */
   transform: translateY(20px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 .weather-app.show {
   opacity: 1;
-  transform: translateY(0); }
+  transform: translateY(0);
+}
 
-  
-  .nasa-section {
+.nasa-section {
   margin-top: 20px;
   background: #f0f4f8;
   padding: 20px;
@@ -331,6 +454,15 @@ main {
   max-width: 100%;
   border-radius: 12px;
   margin-bottom: 10px;
+}
+
+.nasa-view img, .nasa-section img {
+  max-width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nasa-section button {
@@ -354,12 +486,12 @@ main {
   width: 100%;
   background-color: #0a2a43; /* темно-синій */
   color: #fff;
-  padding: 12px 0;
+  padding: 10px 0;
   position: fixed; /* завжди зверху */
   top: 0;
   left: 0;
   z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.18);
 }
 
 .header-container {
@@ -368,12 +500,36 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: var(--gap);
+  padding: 0 16px;
 }
 
 .logo {
   margin: 0;
   font-size: 1.4rem;
   font-weight: bold;
+}
+
+.header-logo {
+  max-width: 160px;
+  width: 24vw;
+  max-height: 48vh;
+  height: auto;
+}
+
+.header-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.registration-side img {
+  max-width: 140px;
+  width: 36vw;
+  height: auto;
+  display: block;
+  margin: 0 auto 12px;
 }
 
 .nav-links a {
@@ -389,9 +545,7 @@ main {
 }
 
 /* Щоб основний контент не ховався під фіксованим header */
-body {
-  padding-top: 82px; 
-}
+/* padding-top already set near top of file */
 
 #Borschcraft {
   border-radius: 50%;
@@ -454,4 +608,10 @@ body {
   color: rgba(255,122,24,0.8);
   cursor: not-allowed;
   box-shadow: none;
+}
+
+/* Focus states for keyboard users */
+#resetCity:focus, #downloadImage:focus, .nav-links a:focus, .registration-side .Continiue-button:focus {
+  outline: 3px solid rgba(255,122,24,0.25);
+  outline-offset: 2px;
 }
